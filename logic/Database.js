@@ -35,6 +35,11 @@ class Database
     {
         await this.client.db("main").collection(collection).insertOne(data);
     }
+
+    async delete(collection, query_string)
+    {
+        await this.client.db("main").collection(collection).deleteOne(query_string);
+    }
 }
 
 let db = new Database();
