@@ -42,4 +42,5 @@ class Database
     }
 }
 
-let db = new Database();
+let database = new Database();
+module.exports = database;
