@@ -1,13 +1,11 @@
-
-require('dotenv').config();
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = process.env.DB_URI;
+let { DB_URI } = require('./config.json');
 
 class Database
 {
     constructor()
     {
-        this.initialize(uri).then(r => (
+        this.initialize(DB_URI).then(r => (
             console.log("MongoDB Connected")
         ));
     }
@@ -40,7 +38,13 @@ class Database
     {
         await this.client.db("main").collection(collection).deleteOne(query_string);
     }
+
+    async check(collection, query_string)
+    {
+        let data = await this.client.db("main").collection(collection).findOne(query_string);
+        return !!data;
+
+    }
 }
 
-let database = new Database();
-module.exports = database;
+module.exports = Database;
